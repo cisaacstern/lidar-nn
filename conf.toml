@@ -1,0 +1,11 @@
+#side length of bounding box (meters)
+SIDE_LEN = 3
+
+#data limits (UTM)
+EAST_BOUNDS = [320977, 320980]
+NORTH_BOUNDS = [4168144, 4168147]
+ELEV_BOUNDS = [2941.977, 2948.356]
+
+PROJECTION = 'WGS84'
+UTC_OFFSET = 8
+LAT_LONG = [37.643, -119.029]
