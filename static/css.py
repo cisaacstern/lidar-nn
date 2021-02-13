@@ -45,11 +45,9 @@ code {
   background-color: teal;
   border-radius: 3px;
   padding: 10px;
+  width: 245px;
 }
 .bk-btn:hover {
-  color: teal;
   background-color: darkslategrey;
-  border-radius: 3px;
-  padding: 10px;
 }
 """

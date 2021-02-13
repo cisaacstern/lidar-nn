@@ -17,8 +17,9 @@ import config as c
 
 pn.config.raw_css = [css,]
 
+name = 'lidar-nn'
 tmpl = pn.Template(template)
-tmpl.add_variable('app_title', 'lidar-nn')
+tmpl.add_variable('app_title', name)
 tmpl.add_variable('description', description)
 tmpl.add_variable('blockquote', blockquote)
 
@@ -28,7 +29,7 @@ class Interact(param.Parameterized):
     '''
     def __init__(self):
         super(Interact, self).__init__()
-        self.filelist = os.listdir('lidar-nn/data')
+        self.filelist = os.listdir(name + '/data')
         self.filelist.sort()
         self.dates = [dt.strptime(fn[:8], '%Y%m%d') for fn in self.filelist]
         self.dict = {d.strftime('%Y-%m-%d'):i for i,d in enumerate(self.dates)}
@@ -74,13 +75,13 @@ class Interact(param.Parameterized):
         '''
         fig, ax = plt.subplots(1)
 
-        filename = self.filelist[self.date]
-        self.data = Interpolate(filename=filename, bounds=c.BOUNDS)
+        self.filename = self.filelist[self.date]
+        self.data = Interpolate(filename=self.filename, bounds=c.BOUNDS)
         xyz = self.data.xyz
 
         ax.scatter(x=xyz[:,0], y=xyz[:,1], c=xyz[:,2], cmap='viridis')
         
-        title = self._set_title(fn=filename)
+        title = self._set_title(fn=self.filename)
         self._format_plt(fig=fig, ax=ax, title=title)
         
         plt.close('all')
@@ -111,7 +112,9 @@ class Interact(param.Parameterized):
         outfile = TemporaryFile()
         np.save(outfile, self.array)
         _ = outfile.seek(0)
-        name = 'interpolated_array.npy'
+        res = str(self.res) if len(str(self.res))==3 else '0'+str(self.res)
+        params = f'R{res}S{str(self.sigma).replace(".", "")}'
+        name = f'{self.filename[:8]}_NN{params}.npy'
         return pn.widgets.FileDownload(file=outfile, filename=name)
 
 
