@@ -112,8 +112,13 @@ class Interact(param.Parameterized):
         outfile = TemporaryFile()
         np.save(outfile, self.array)
         _ = outfile.seek(0)
-        res = str(self.res) if len(str(self.res))==3 else '0'+str(self.res)
-        params = f'R{res}S{str(self.sigma).replace(".", "")}'
+
+        res = str(self.res)
+        res = res if len(res)==3 else '0' + res
+        sigma = str(self.sigma).replace(".", "")
+        sigma = sigma if len(sigma)==2 else sigma + '0'
+
+        params = f'R{res}S{sigma}'
         name = f'{self.filename[:8]}_NN{params}.npy'
         return pn.widgets.FileDownload(file=outfile, filename=name)
 
