@@ -35,4 +35,21 @@ span .fa {
 code {
   opacity: 80% !important;
 }
+
+.bk .bk-input-group {
+  width: 70%;
+  margin-left: 70px;
+}
+
+.bk-btn {
+  background-color: teal;
+  border-radius: 3px;
+  padding: 10px;
+}
+.bk-btn:hover {
+  color: teal;
+  background-color: darkslategrey;
+  border-radius: 3px;
+  padding: 10px;
+}
 """

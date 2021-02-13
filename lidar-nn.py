@@ -1,8 +1,10 @@
 import os
 from datetime import datetime as dt
+from tempfile import TemporaryFile
 
 import param
 import panel as pn
+import numpy as np
 from scipy import ndimage
 import matplotlib.pyplot as plt
 
@@ -106,15 +108,16 @@ class Interact(param.Parameterized):
     def export(self):
         '''
         '''
-        name = 'Download array'
-        return pn.widgets.Button(name=name, button_type='success')
+        outfile = TemporaryFile()
+        np.save(outfile, self.array)
+        _ = outfile.seek(0)
+        name = 'interpolated_array.npy'
+        return pn.widgets.FileDownload(file=outfile, filename=name)
 
 
 interact = Interact()
 
-date_sldr = pn.widgets.DiscreteSlider.from_param(interact.param.date)
-
-tmpl.add_panel('A', pn.Column(interact.input, date_sldr))
+tmpl.add_panel('A', pn.Column(interact.input, interact.param.date))
 tmpl.add_panel('B', pn.Column(
                         interact.output, 
                         interact.param.res,

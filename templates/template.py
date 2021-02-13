@@ -19,17 +19,20 @@ template = """
 <br>
 <div class="container">
   <div class="row">
-    <div class="col-sm">
+    <div class="col-sm-auto">
       {{ embed(roots.A) }}
     </div>
-    <div class="col-sm">
+    <div class="col-sm-auto">
       {{ embed(roots.B) }}
     </div>
   </div>
   <br>
+  <br>
   <div class="row centered">
       {{ embed(roots.C) }}
   </div>
+  <br>
+  <br>
 </div>
 {% endblock %}
 """
