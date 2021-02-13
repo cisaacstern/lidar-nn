@@ -117,13 +117,11 @@ class Interact(param.Parameterized):
 
 interact = Interact()
 
-tmpl.add_panel('A', pn.Column(interact.input, interact.param.date))
-tmpl.add_panel('B', pn.Column(
-                        interact.output, 
-                        interact.param.res,
-                        interact.param.sigma,
-                    )
-                )
+input_params = [interact.param.date,]
+output_params = [interact.param.res, interact.param.sigma,]
+
+tmpl.add_panel('A', pn.Column(interact.input, *input_params))
+tmpl.add_panel('B', pn.Column(interact.output, *output_params))
 tmpl.add_panel('C', interact.export)
 
 tmpl.servable()
