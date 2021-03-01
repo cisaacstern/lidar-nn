@@ -7,6 +7,7 @@ import panel as pn
 import numpy as np
 from scipy import ndimage
 import matplotlib.pyplot as plt
+from bokeh.settings import settings 
 
 from templates.template import template
 from static.css import css
@@ -15,6 +16,7 @@ from static.blockquote import blockquote
 from interpolate import Interpolate
 import config as c
 
+settings.resources = 'cdn'
 pn.config.raw_css = [css,]
 
 name = 'lidar-nn'
